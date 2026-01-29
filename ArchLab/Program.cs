@@ -1,23 +1,38 @@
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    builder.Services.AddControllers();
+
+    builder.Services.AddOpenTelemetry()
+        .ConfigureResource(resource => resource
+            .AddService(serviceName: builder.Environment.ApplicationName))
+        .WithMetrics(metrics => metrics
+            .AddAspNetCoreInstrumentation()
+            .AddRuntimeInstrumentation()
+            .AddProcessInstrumentation()
+            .AddPrometheusExporter())
+        .WithTracing(tracing => tracing
+            .AddAspNetCoreInstrumentation());
 }
 
-app.UseHttpsRedirection();
+var app = builder.Build();
+{
+    app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
+    app.MapGet("/test", () =>
+    {
+        var list = Enumerable
+            .Range(1, 10000)
+            .Select(c => new
+            {
+                Name = new string('*', 10),
+                Description = new string('*', 1000),
+            })
+            .ToList();
+        return list;
+    });
+}
 app.Run();

@@ -1,0 +1,168 @@
+{
+    "panels": [
+        {
+            "title": "GC Heap Memory by Generation",
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "targets": [
+                {
+                    "expr": "dotnet_gc_last_collection_heap_size_bytes{gc_heap_generation='gen0'}",
+                    "legendFormat": "Gen 0",
+                    "refId": "A"
+                },
+                {
+                    "expr": "dotnet_gc_last_collection_heap_size_bytes{gc_heap_generation='gen1'}",
+                    "legendFormat": "Gen 1",
+                    "refId": "B"
+                },
+                {
+                    "expr": "dotnet_gc_last_collection_heap_size_bytes{gc_heap_generation='gen2'}",
+                    "legendFormat": "Gen 2",
+                    "refId": "C"
+                },
+                {
+                    "expr": "dotnet_gc_last_collection_heap_size_bytes{gc_heap_generation='loh'}",
+                    "legendFormat": "LOH",
+                    "refId": "D"
+                },
+                {
+                    "expr": "dotnet_gc_last_collection_heap_size_bytes{gc_heap_generation='poh'}",
+                    "legendFormat": "POH",
+                    "refId": "E"
+                }
+            ],
+            "type": "timeseries",
+            "fieldConfig": {
+                "defaults": {
+                    "unit": "bytes",
+                    "min": 0,
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "drawStyle": "line",
+                        "lineInterpolation": "linear",
+                        "barAlignment": 0,
+                        "lineWidth": 2,
+                        "fillOpacity": 30,
+                        "gradientMode": "opacity",
+                        "spanNulls": false,
+                        "showPoints": "auto",
+                        "pointSize": 5,
+                        "stacking": {
+                            "mode": "normal",
+                            "group": "A"
+                        },
+                        "axisPlacement": "auto",
+                        "axisLabel": "",
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "axisCenteredZero": false,
+                        "hideFrom": {
+                            "tooltip": false,
+                            "viz": false,
+                            "legend": false
+                        }
+                    }
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Gen 0"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#7EB26D",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Gen 1"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#EAB839",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Gen 2"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#6ED0E0",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "LOH"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#EF843C",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "POH"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "#E24D42",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "options": {
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "legend": {
+                    "displayMode": "table",
+                    "placement": "bottom",
+                    "calcs": [
+                        "mean",
+                        "last",
+                        "max"
+                    ]
+                }
+            }
+        }
+    ]
+}

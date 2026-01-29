@@ -1,6 +1,0 @@
-@ArchLab_HostAddress = http://localhost:5030
-
-GET {{ArchLab_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
