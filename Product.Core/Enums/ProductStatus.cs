@@ -2,4 +2,10 @@
 
 public enum ProductStatus
 {
+    Draft,
+    Published,
+    Archived,
+    Deleted,
+    OutOfStock,
+    Discontinued
 }

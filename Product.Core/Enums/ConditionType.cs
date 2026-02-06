@@ -2,4 +2,9 @@
 
 public enum ConditionType
 {
+    New,
+    Used,
+    Refurbished,
+    OpenBox,
+    Damaged
 }
