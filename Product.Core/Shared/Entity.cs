@@ -52,11 +52,6 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
     {
         return Id.GetHashCode();
     }
-
-    public void UpdateTimestamps()
-    {
-        UpdatedAt = DateTime.UtcNow;
-    }
 }
 
 public abstract class Entity : Entity<Guid>

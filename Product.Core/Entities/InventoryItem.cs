@@ -8,7 +8,12 @@ public class InventoryItem : Entity
 {
     // Core
     public Guid ProductVariantId { get; private set; }
-    public ProductVariant ProductVariant { get; private set; } = null!;
+    public Guid WarehouseLocationId { get; private set; }
+    public Guid? SupplierId { get; private set; }
+
+    public virtual ProductVariant ProductVariant { get; private set; } = null!;
+    public virtual WarehouseLocation Location { get; private set; } = null!;
+    public virtual Supplier? Supplier { get; private set; }
 
     // Identification
     public string? SerialNumber { get; private set; }
@@ -20,9 +25,7 @@ public class InventoryItem : Entity
     public InventoryItemStatus Status { get; private set; }
     public InventoryItemCondition Condition { get; private set; }
 
-    // Supplier & Cost
-    public Guid? SupplierId { get; private set; }
-    public Supplier? Supplier { get; private set; }
+    // Cost
     public Money CostPrice { get; private set; } = default!;
     public string? PurchaseOrderNumber { get; private set; }
     public string? SupplierInvoiceNumber { get; private set; }
